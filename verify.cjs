@@ -36,7 +36,7 @@ const assert = require('node:assert/strict');
     await page.reload(); assert.equal(await page.locator('#draft-count').innerText(),'1');
     await page.getByRole('button',{name:'Ready for review',exact:true}).click();
     await page.getByRole('button',{name:'Approve locally',exact:true}).click();
-    assert.equal(await page.locator('.draft .status').innerText(),'Approved locally');
+    assert.equal(await page.locator('.draft .status').textContent(),'Approved locally');
     const exported = page.waitForEvent('download'); await page.getByRole('button',{name:'Export drafts'}).click();
     assert.equal((await exported).suggestedFilename(),'dance-africa-editorial-drafts.json');
     page.once('dialog',d=>d.accept()); await page.getByRole('button',{name:'Delete draft:'}).click();
